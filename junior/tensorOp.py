@@ -1,8 +1,9 @@
 from __future__ import print_function
 import tensorflow as tf
 
+val = tf.Variable(0,name="counter")
 '''
-tensor:张量 可以算作一个矩阵，所以适用于矩阵运算
+tensor:张量 可以算作一个矩阵，所以适用于矩阵运算,定义的常量
 '''
 a = tf.constant(2)
 b = tf.constant(3)
@@ -12,6 +13,10 @@ add = tf.add(a,b)
 sub = tf.subtract(a,b)
 mul = tf.multiply(a,b)
 div = tf.divide(a,b)
+new_val = tf.add(val,a)
+print(val.numpy())
+val.assign_add(new_val)
+print(val.numpy(),new_val.numpy())
 
 print("add =", add.numpy())
 print("sub =", sub.numpy())
