@@ -2,3 +2,4 @@ venv/
 junior/*.gif
 matplotlib/
 numpy/
+test/

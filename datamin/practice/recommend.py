@@ -115,7 +115,7 @@ class recommender:
         f.close()
 
     def pearson(self, r1, r2):
-        """皮尔森相关系数"""
+        """皮尔逊相关系数"""
         sum_xy = 0
         sum_x = 0
         sum_y = 0
