@@ -22,8 +22,15 @@ Y = np.array([1.7,2.76,2.09,3.19,1.694,1.573,3.366,2.596,2.53,1.221,
 w = tf.Variable(np.random.randn(),name="weight")
 b = tf.Variable(np.random.randn(),name="bias")
 
+# 画图的参数
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+plt.scatter(X,Y)
+plt.ion()  #更新
+plt.show()
+
 def linear_regression(x):
-    return w * x + b;
+    return w * x + b
 
 def mean_square(y_pred,y_true):
     #预测值 与 真实值相减
