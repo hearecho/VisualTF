@@ -1,5 +1,5 @@
 """
-线性回归思想,圣经网络的处理思路
+线性回归思想,神经经网络的处理思路
 """
 import numpy as np
 import matplotlib
