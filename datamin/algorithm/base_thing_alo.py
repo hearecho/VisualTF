@@ -44,18 +44,35 @@ def cos_update(th1, th2, ratings):
 def RToNR(min,max,rate):
     return (2*(rate-min)-(max-min))/(max-min)
 def NRToR(min,max,rate):
-    return ((rate+1)*(max-min)+min)/2
+    return (rate+1)*(max-min)/2 +min
 
+def pred(ratings,similar):
+    num = 0
+    dem = 0
+    for (k,v) in similar:
+        num += ratings[k]*v
+        dem += abs(v)
+    return NRToR(1,5,num/dem)
+    pass
 def recommend(user,thing,users):
     """
     通过上述计算相似度算法，预测对于某个物品的评分
     1. 规范化评分
+    2. 计算该物品和用户评价中物品计算相似度
+    3. 计算规范化预测评分
     :param user: 用户
     :param thing: 预测评价对象
     :return:
     """
     ratings = {}
-    for k,v in users[user]:
+    similar = []
+    for k,v in users[user].items():
         ratings[k] = RToNR(1,5,v)
+        if k != thing:
+            rate = cos_update(k,thing,users)
+            if rate != 0:
+                similar.append((k,rate))
+    return pred(ratings,similar)
 
-    pass
+
+print(recommend("David","Kacey Musgraves",users))
