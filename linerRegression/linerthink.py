@@ -7,9 +7,6 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 x_data = []
 y_data = []
-fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-
 def genData(n):
     """
     生成测试n数据
@@ -101,14 +98,20 @@ def main(data):
     init_w = 0
     init_b = 0
     tn = 1000
-    [w, b] = update(data, init_w, init_b, lr, tn)
-    loss = mse(b, w, data)  # 计算最优数值解 w,b 上的均方差
-    print(f'Final loss:{loss}, w:{w}, b:{b}')
+    [w_pre, b_pre] = update(data, init_w, init_b, lr, tn)
+    loss = mse(b_pre, w_pre, data)  # 计算最优数值解 w,b 上的均方差
+    print(f'Final loss:{loss}, w:{w_pre}, b:{b_pre}')
+    return w_pre, b_pre
 
 if __name__ == '__main__':
     data = genData(100)
-    ax.scatter(x_data, y_data)
-    plt.ion()
+    # printer(x_data,y_data)
+    w_pre, b_pre = main(data)
+    y_pre = []
+    for i in range(100):
+        y_pre.append(w_pre*x_data[i]+b_pre)
+    plt.figure()
+    plt.scatter(x_data,y_data)
+    plt.plot(x_data,y_pre,'r')
     plt.show()
-    main(data)
 
