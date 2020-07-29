@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 import tensorflow as tf
 import numpy as np
-import matplotlib;
+import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation

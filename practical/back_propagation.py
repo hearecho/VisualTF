@@ -15,7 +15,6 @@ TEST_SIZE = 0.3
 X, y = make_moons(n_samples=N_SAMPLES, noise=0.2, random_state=100)
 X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=TEST_SIZE, random_state=42)
-print(X.shape, y.shape)
 
 
 def make_plot(X, y, plot_name, file_name=None, XX=None, YY=None, preds=None, dark=False):
@@ -164,7 +163,7 @@ class NeuralNetwork:
         :return:
         """
         y_onehot = np.zeros((y_train.shape[0], 2))
-        y_onehot[np.array(y_train.shape[0]),y_train] = 1
+        y_onehot[np.arange(y_train.shape[0]),y_train] = 1
         mses = []
         for i in range(max_epochs):  # 训练 1000 个 epoch
             for j in range(len(X_train)):  # 一次训练一个样本
@@ -175,5 +174,15 @@ class NeuralNetwork:
                 mses.append(mse)
                 print('Epoch: #%s, MSE: %f' % (i, float(mse)))
                 # 统计并打印准确率
-                print('Accuracy: %.2f%%' % (self.accuracy(self.predict(X_test),y_test.flatten()) * 100))
+                # print('Accuracy: %.2f%%' % (self.accuracy(self.predict(X_test),y_test.flatten()) * 100))
         return mses
+
+if __name__ == '__main__':
+    nn = NeuralNetwork()
+    #生成的数据是二分类问题
+    nn.add_layer(Layer(2, 25, 'sigmoid'))  # 隐藏层 1, 2=>25
+    nn.add_layer(Layer(25, 50, 'sigmoid'))  # 隐藏层 2, 25=>50
+    nn.add_layer(Layer(50, 25, 'sigmoid'))  # 隐藏层 3, 50=>25
+    nn.add_layer(Layer(25, 2, 'sigmoid'))  # 输出层, 25=>2
+    nn.train(X_train,X_test,y_train,y_test,0.001,1000)
+
