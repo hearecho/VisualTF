@@ -23,7 +23,7 @@ class LinerModel(tf.keras.Model):
         self.dense = tf.keras.layers.Dense(
             units=1,
             activation=None,
-            kernel_initializer=tf.zeros_initializer(),
+            kernel_initializer=tf.ones_initializer(),
             bias_initializer=tf.zeros_initializer()
         )
 
@@ -44,11 +44,11 @@ for i in range(100):
         plt.cla()
         plt.scatter(X,y)
         plt.plot(X,y_pred,'r-',lw=5)
-        plt.text(0.5, 0, 'Loss=%.4f' % loss, fontdict={'size': 20, 'color': 'red'})
+        plt.text(0.5, 0, 'step={}Loss={:.4f}'.format(i,loss), fontdict={'size': 16, 'color': 'red'})
         plt.pause(0.2)
 
 plt.ioff()
 plt.show()
-
+print(model.variables[0].numpy())
 
 # print(model.variables)
