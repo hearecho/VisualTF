@@ -78,8 +78,7 @@ def evaluate_accuracy(data_iter, net):
         n += y.shape[0]
     return acc_sum / n
 
-num_epochs, lr = 50, 0.05
-# 本函数已保存在d2lzh包中方便以后使用
+num_epochs, lr = 10, 0.5
 def train_ch3(net, train_iter, test_iter, loss, num_epochs, batch_size, params=None, lr=None, trainer=None):
     for epoch in range(num_epochs):
         train_l_sum, train_acc_sum, n = 0.0, 0.0, 0
@@ -104,10 +103,10 @@ def train_ch3(net, train_iter, test_iter, loss, num_epochs, batch_size, params=N
         test_acc = evaluate_accuracy(test_iter, net)
         print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f'% (epoch + 1, train_l_sum / n, train_acc_sum / n, test_acc))
 
-# trainer = tf.keras.optimizers.SGD(lr)
-# train_ch3(model, train_iter, test_iter, cross_entropy, num_epochs, batch_size, [W, b], lr,trainer)
-for X,y in train_iter:
-    y_hat = model(X)
-    print(cross_entropy(y_hat,y))
-    break
+trainer = tf.keras.optimizers.SGD(lr)
+train_ch3(model, train_iter, test_iter, cross_entropy, num_epochs, batch_size, [W, b], lr,trainer)
+# for X,y in train_iter:
+#     y_hat = model(X)
+#     print(cross_entropy(y_hat,y))
+#     break
 
