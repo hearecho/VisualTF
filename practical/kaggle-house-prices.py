@@ -36,7 +36,7 @@ n_train = train_data.shape[0]
 train_features = np.array(all_features[:n_train].values,dtype=np.float)
 test_features = np.array(all_features[n_train:].values,dtype=np.float)
 train_labels = np.array(train_data.SalePrice.values.reshape(-1, 1),dtype=np.float)
-print(train_features.shape)
+print(train_labels)
 
 
 def get_net():
@@ -85,7 +85,7 @@ def k_fold(k, X_train, y_train, num_epochs,learning_rate, weight_decay, batch_si
 
 
 k, num_epochs, lr, weight_decay, batch_size = 5, 100, 5, 0, 64
-k_fold(k, train_features, train_labels, num_epochs,lr, weight_decay, batch_size)
+# k_fold(k, train_features, train_labels, num_epochs,lr, weight_decay, batch_size)
 
 
 
