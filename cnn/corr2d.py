@@ -23,7 +23,27 @@ def corr2d_multi_in(X, K):
     return tf.reduce_sum([corr2d(X[i],K[i]) for i in range(X.shape[0])],axis=0)
 
 def corr2d_multi_in_out(X, K):
+    """
+    多输入多输出卷积层
+    :param X:
+    :param K:
+    :return:
+    """
     return tf.stack([corr2d_multi_in(X, k) for k in K],axis=0)
+
+def corr2d_multi_in_out_1x1(X, K):
+    """
+    1*1卷积层 相当于全连接层
+    :param X:
+    :param K:
+    :return:
+    """
+    c_i, h, w = X.shape
+    c_o = K.shape[0]
+    X = tf.reshape(X,(c_i, h * w))
+    K = tf.reshape(K,(c_o, c_i))
+    Y = tf.matmul(K, X)
+    return tf.reshape(Y, (c_o, h, w))
 
 X = tf.constant([[[0,1,2],[3,4,5],[6,7,8]],
                  [[1,2,3],[4,5,6],[7,8,9]]])
